@@ -13,7 +13,7 @@ fn call_methods(wrapper: &Wrapper) {
     }
 }
 
-pub fn homework41() {
+pub fn hw41() {
     let vec = vec![
         Wrapper::Type1(10),
         Wrapper::Type2("hello".to_string()),
@@ -23,4 +23,5 @@ pub fn homework41() {
     for wrapper in vec {
         call_methods(&wrapper);
     }
+    println!("-----------------------------------------------------");
 }

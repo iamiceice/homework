@@ -1,54 +1,38 @@
-use std::clone::Clone;
-
-#[derive(Debug)]
-struct Point {
-    x: i32,
-    y: i32,
+trait MyTrait{
+    fn method(&self);
 }
 
-#[derive(Debug)]
-struct Rectangle {
-    width: i32,
-    height: i32,
-}
-
-trait Addable {
-    fn add(&self, other: &Self) -> Self;
-}
-
-impl Addable for Point {
-    fn add(&self, other: &Self) -> Self {
-        let other = other.clone();
-        Point {
-            x: self.x + other.x,
-            y: self.y + other.y,
-        }
+impl MyTrait for i32{
+    fn method(&self) {
+        println!("调用i32的方法，x={}",*self)
     }
 }
 
-impl Addable for Rectangle {
-    fn add(&self, other: &Self) -> Self {
-        let other = other.clone();
-        Rectangle {
-            width: self.width + other.width,
-            height: self.height + other.height,
-        }
+impl MyTrait for String{
+    fn method(&self) {
+        println!("调用String的方法，x={}",*self)
     }
 }
 
-fn add_objects<T: Addable>(a: &T, b: &T) -> T {
-    a.add(b)
+impl MyTrait for f64 {
+    fn method(&self) {
+        println!("调用 f64 的方法，x = {}", *self);
+    }
 }
 
-pub fn homework42() {
-    let point1 = Point { x: 10, y: 20 };
-    let point2 = Point { x: 30, y: 40 };
-    let rectangle1 = Rectangle { width: 50, height: 60 };
-    let rectangle2 = Rectangle { width: 70, height: 80 };
+fn call_methods(x: &dyn MyTrait){
+    x.method();
+}
 
-    let result_point = add_objects(&point1, &point2);
-    let result_rectangle = add_objects(&rectangle1, &rectangle2);
+pub fn hw42(){
+    let vec:Vec<Box<dyn MyTrait>>=vec![
+        Box::new(10i32),
+        Box::new("hello".to_string()),
+        Box::new(3.1415926f64),
+    ];
 
-    println!("Point addition result: {:?}", result_point);
-    println!("Rectangle addition result: {:?}", result_rectangle);
+    for x in vec{
+        call_methods(&*x);
+    }
+    println!("-----------------------------------------------------");
 }
