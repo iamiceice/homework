@@ -1,0 +1,14 @@
+Point<T>
+这里，结构体和后面的泛型是一个整体
+
+函数和结构体的泛型可以不同
+
+Trait：特征 是对类型的约束
+T:Animal 即：类型T必须实现了Animal（T必须是动物）
+T:Animal+Tame 表示T是Animal和Tame的交集
+
+Trait类似于GO语言中的接口
+
+Self类型即：（self,&self,&mut self）
+trait里的函数中第一个参数如果不是Self类型，就是只属于trait本身的函数（不是方法，类似于静态方法）。trait里的方法只能借用，不能有所有权。
+这是用双冒号（路径符）访问函数：Default::default();    //两个冒号叫路径符
